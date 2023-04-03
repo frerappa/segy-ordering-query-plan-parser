@@ -1,0 +1,2 @@
+filter:
+VALUE >= -0.7866 and not (VALUE > 0);

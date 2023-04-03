@@ -1,0 +1,2 @@
+filter:
+not not (VALUE != 0);

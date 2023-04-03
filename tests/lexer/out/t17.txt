@@ -1,0 +1,5 @@
+order:
+metadataX, metadataY;
+
+filter:
+-10 < cdp < 99.6 and (1 < 2 or not 1 != 1) and 10_000 < metadata77;

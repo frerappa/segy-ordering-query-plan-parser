@@ -1,0 +1,11 @@
+filter:
+    (cdp >= 10 and
+    cdp <= 1 and
+    metadata35 != 5) or
+    data3 = 10;
+
+order:
+    metadata1,
+    metadata2,
+    metadata7,
+    metadata3;

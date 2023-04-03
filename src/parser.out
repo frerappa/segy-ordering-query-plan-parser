@@ -1,0 +1,1204 @@
+Grammar:
+
+Rule 0     S' -> program
+Rule 1     program -> empty
+Rule 2     program -> order
+Rule 3     program -> filter
+Rule 4     program -> order filter
+Rule 5     program -> filter order
+Rule 6     empty -> <empty>
+Rule 7     order -> ORDER COLON id_list SEMI
+Rule 8     filter -> FILTER COLON expression SEMI
+Rule 9     id_list -> id_list COMMA id  [precedence=left, level=1]
+Rule 10    id_list -> id
+Rule 11    id -> ID
+Rule 12    constant -> FALSE
+Rule 13    constant -> TRUE
+Rule 14    constant -> CHAR_CONST
+Rule 15    constant -> STRING_LITERAL
+Rule 16    constant -> REAL_CONST
+Rule 17    constant -> INT_CONST
+Rule 18    expression -> expression OR expression  [precedence=left, level=2]
+Rule 19    expression -> expression AND expression  [precedence=left, level=3]
+Rule 20    expression -> expression NE expression  [precedence=left, level=4]
+Rule 21    expression -> expression EQ expression  [precedence=left, level=4]
+Rule 22    expression -> expression GE expression  [precedence=left, level=5]
+Rule 23    expression -> expression GT expression  [precedence=left, level=5]
+Rule 24    expression -> expression LE expression  [precedence=left, level=5]
+Rule 25    expression -> expression LT expression  [precedence=left, level=5]
+Rule 26    expression -> unary_expression
+Rule 27    unary_expression -> NOT unary_expression  [precedence=right, level=7]
+Rule 28    unary_expression -> MINUS unary_expression  [precedence=left, level=6]
+Rule 29    unary_expression -> PLUS unary_expression  [precedence=left, level=6]
+Rule 30    unary_expression -> primary_expression
+Rule 31    primary_expression -> LPAREN expression RPAREN
+Rule 32    primary_expression -> constant
+Rule 33    primary_expression -> id
+
+Terminals, with rules where they appear:
+
+AND                  : 19
+CHAR_CONST           : 14
+COLON                : 7 8
+COMMA                : 9
+EQ                   : 21
+FALSE                : 12
+FILTER               : 8
+GE                   : 22
+GT                   : 23
+ID                   : 11
+INT_CONST            : 17
+LE                   : 24
+LPAREN               : 31
+LT                   : 25
+MINUS                : 28
+NE                   : 20
+NOT                  : 27
+OR                   : 18
+ORDER                : 7
+PLUS                 : 29
+REAL_CONST           : 16
+RPAREN               : 31
+SEMI                 : 7 8
+STRING_LITERAL       : 15
+TRUE                 : 13
+error                : 
+
+Nonterminals, with rules where they appear:
+
+constant             : 32
+empty                : 1
+expression           : 8 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 31
+filter               : 3 4 5
+id                   : 9 10 33
+id_list              : 7 9
+order                : 2 4 5
+primary_expression   : 30
+program              : 0
+unary_expression     : 26 27 28 29
+
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . empty
+    (2) program -> . order
+    (3) program -> . filter
+    (4) program -> . order filter
+    (5) program -> . filter order
+    (6) empty -> .
+    (7) order -> . ORDER COLON id_list SEMI
+    (8) filter -> . FILTER COLON expression SEMI
+    $end            reduce using rule 6 (empty -> .)
+    ORDER           shift and go to state 5
+    FILTER          shift and go to state 6
+
+    program                        shift and go to state 1
+    empty                          shift and go to state 2
+    order                          shift and go to state 3
+    filter                         shift and go to state 4
+
+state 1
+
+    (0) S' -> program .
+
+
+state 2
+
+    (1) program -> empty .
+    $end            reduce using rule 1 (program -> empty .)
+
+
+state 3
+
+    (2) program -> order .
+    (4) program -> order . filter
+    (8) filter -> . FILTER COLON expression SEMI
+    $end            reduce using rule 2 (program -> order .)
+    FILTER          shift and go to state 6
+
+    filter                         shift and go to state 7
+
+state 4
+
+    (3) program -> filter .
+    (5) program -> filter . order
+    (7) order -> . ORDER COLON id_list SEMI
+    $end            reduce using rule 3 (program -> filter .)
+    ORDER           shift and go to state 5
+
+    order                          shift and go to state 8
+
+state 5
+
+    (7) order -> ORDER . COLON id_list SEMI
+    COLON           shift and go to state 9
+
+
+state 6
+
+    (8) filter -> FILTER . COLON expression SEMI
+    COLON           shift and go to state 10
+
+
+state 7
+
+    (4) program -> order filter .
+    $end            reduce using rule 4 (program -> order filter .)
+
+
+state 8
+
+    (5) program -> filter order .
+    $end            reduce using rule 5 (program -> filter order .)
+
+
+state 9
+
+    (7) order -> ORDER COLON . id_list SEMI
+    (9) id_list -> . id_list COMMA id
+    (10) id_list -> . id
+    (11) id -> . ID
+    ID              shift and go to state 13
+
+    id_list                        shift and go to state 11
+    id                             shift and go to state 12
+
+state 10
+
+    (8) filter -> FILTER COLON . expression SEMI
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 14
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 11
+
+    (7) order -> ORDER COLON id_list . SEMI
+    (9) id_list -> id_list . COMMA id
+    SEMI            shift and go to state 29
+    COMMA           shift and go to state 30
+
+
+state 12
+
+    (10) id_list -> id .
+    SEMI            reduce using rule 10 (id_list -> id .)
+    COMMA           reduce using rule 10 (id_list -> id .)
+
+
+state 13
+
+    (11) id -> ID .
+    SEMI            reduce using rule 11 (id -> ID .)
+    COMMA           reduce using rule 11 (id -> ID .)
+    OR              reduce using rule 11 (id -> ID .)
+    AND             reduce using rule 11 (id -> ID .)
+    NE              reduce using rule 11 (id -> ID .)
+    EQ              reduce using rule 11 (id -> ID .)
+    GE              reduce using rule 11 (id -> ID .)
+    GT              reduce using rule 11 (id -> ID .)
+    LE              reduce using rule 11 (id -> ID .)
+    LT              reduce using rule 11 (id -> ID .)
+    RPAREN          reduce using rule 11 (id -> ID .)
+
+
+state 14
+
+    (8) filter -> FILTER COLON expression . SEMI
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            shift and go to state 31
+    OR              shift and go to state 32
+    AND             shift and go to state 33
+    NE              shift and go to state 34
+    EQ              shift and go to state 35
+    GE              shift and go to state 36
+    GT              shift and go to state 37
+    LE              shift and go to state 38
+    LT              shift and go to state 39
+
+
+state 15
+
+    (26) expression -> unary_expression .
+    SEMI            reduce using rule 26 (expression -> unary_expression .)
+    OR              reduce using rule 26 (expression -> unary_expression .)
+    AND             reduce using rule 26 (expression -> unary_expression .)
+    NE              reduce using rule 26 (expression -> unary_expression .)
+    EQ              reduce using rule 26 (expression -> unary_expression .)
+    GE              reduce using rule 26 (expression -> unary_expression .)
+    GT              reduce using rule 26 (expression -> unary_expression .)
+    LE              reduce using rule 26 (expression -> unary_expression .)
+    LT              reduce using rule 26 (expression -> unary_expression .)
+    RPAREN          reduce using rule 26 (expression -> unary_expression .)
+
+
+state 16
+
+    (27) unary_expression -> NOT . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    unary_expression               shift and go to state 40
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 17
+
+    (28) unary_expression -> MINUS . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    unary_expression               shift and go to state 41
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 18
+
+    (29) unary_expression -> PLUS . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    unary_expression               shift and go to state 42
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 19
+
+    (30) unary_expression -> primary_expression .
+    SEMI            reduce using rule 30 (unary_expression -> primary_expression .)
+    OR              reduce using rule 30 (unary_expression -> primary_expression .)
+    AND             reduce using rule 30 (unary_expression -> primary_expression .)
+    NE              reduce using rule 30 (unary_expression -> primary_expression .)
+    EQ              reduce using rule 30 (unary_expression -> primary_expression .)
+    GE              reduce using rule 30 (unary_expression -> primary_expression .)
+    GT              reduce using rule 30 (unary_expression -> primary_expression .)
+    LE              reduce using rule 30 (unary_expression -> primary_expression .)
+    LT              reduce using rule 30 (unary_expression -> primary_expression .)
+    RPAREN          reduce using rule 30 (unary_expression -> primary_expression .)
+
+
+state 20
+
+    (31) primary_expression -> LPAREN . expression RPAREN
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 43
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 21
+
+    (32) primary_expression -> constant .
+    SEMI            reduce using rule 32 (primary_expression -> constant .)
+    OR              reduce using rule 32 (primary_expression -> constant .)
+    AND             reduce using rule 32 (primary_expression -> constant .)
+    NE              reduce using rule 32 (primary_expression -> constant .)
+    EQ              reduce using rule 32 (primary_expression -> constant .)
+    GE              reduce using rule 32 (primary_expression -> constant .)
+    GT              reduce using rule 32 (primary_expression -> constant .)
+    LE              reduce using rule 32 (primary_expression -> constant .)
+    LT              reduce using rule 32 (primary_expression -> constant .)
+    RPAREN          reduce using rule 32 (primary_expression -> constant .)
+
+
+state 22
+
+    (33) primary_expression -> id .
+    SEMI            reduce using rule 33 (primary_expression -> id .)
+    OR              reduce using rule 33 (primary_expression -> id .)
+    AND             reduce using rule 33 (primary_expression -> id .)
+    NE              reduce using rule 33 (primary_expression -> id .)
+    EQ              reduce using rule 33 (primary_expression -> id .)
+    GE              reduce using rule 33 (primary_expression -> id .)
+    GT              reduce using rule 33 (primary_expression -> id .)
+    LE              reduce using rule 33 (primary_expression -> id .)
+    LT              reduce using rule 33 (primary_expression -> id .)
+    RPAREN          reduce using rule 33 (primary_expression -> id .)
+
+
+state 23
+
+    (12) constant -> FALSE .
+    SEMI            reduce using rule 12 (constant -> FALSE .)
+    OR              reduce using rule 12 (constant -> FALSE .)
+    AND             reduce using rule 12 (constant -> FALSE .)
+    NE              reduce using rule 12 (constant -> FALSE .)
+    EQ              reduce using rule 12 (constant -> FALSE .)
+    GE              reduce using rule 12 (constant -> FALSE .)
+    GT              reduce using rule 12 (constant -> FALSE .)
+    LE              reduce using rule 12 (constant -> FALSE .)
+    LT              reduce using rule 12 (constant -> FALSE .)
+    RPAREN          reduce using rule 12 (constant -> FALSE .)
+
+
+state 24
+
+    (13) constant -> TRUE .
+    SEMI            reduce using rule 13 (constant -> TRUE .)
+    OR              reduce using rule 13 (constant -> TRUE .)
+    AND             reduce using rule 13 (constant -> TRUE .)
+    NE              reduce using rule 13 (constant -> TRUE .)
+    EQ              reduce using rule 13 (constant -> TRUE .)
+    GE              reduce using rule 13 (constant -> TRUE .)
+    GT              reduce using rule 13 (constant -> TRUE .)
+    LE              reduce using rule 13 (constant -> TRUE .)
+    LT              reduce using rule 13 (constant -> TRUE .)
+    RPAREN          reduce using rule 13 (constant -> TRUE .)
+
+
+state 25
+
+    (14) constant -> CHAR_CONST .
+    SEMI            reduce using rule 14 (constant -> CHAR_CONST .)
+    OR              reduce using rule 14 (constant -> CHAR_CONST .)
+    AND             reduce using rule 14 (constant -> CHAR_CONST .)
+    NE              reduce using rule 14 (constant -> CHAR_CONST .)
+    EQ              reduce using rule 14 (constant -> CHAR_CONST .)
+    GE              reduce using rule 14 (constant -> CHAR_CONST .)
+    GT              reduce using rule 14 (constant -> CHAR_CONST .)
+    LE              reduce using rule 14 (constant -> CHAR_CONST .)
+    LT              reduce using rule 14 (constant -> CHAR_CONST .)
+    RPAREN          reduce using rule 14 (constant -> CHAR_CONST .)
+
+
+state 26
+
+    (15) constant -> STRING_LITERAL .
+    SEMI            reduce using rule 15 (constant -> STRING_LITERAL .)
+    OR              reduce using rule 15 (constant -> STRING_LITERAL .)
+    AND             reduce using rule 15 (constant -> STRING_LITERAL .)
+    NE              reduce using rule 15 (constant -> STRING_LITERAL .)
+    EQ              reduce using rule 15 (constant -> STRING_LITERAL .)
+    GE              reduce using rule 15 (constant -> STRING_LITERAL .)
+    GT              reduce using rule 15 (constant -> STRING_LITERAL .)
+    LE              reduce using rule 15 (constant -> STRING_LITERAL .)
+    LT              reduce using rule 15 (constant -> STRING_LITERAL .)
+    RPAREN          reduce using rule 15 (constant -> STRING_LITERAL .)
+
+
+state 27
+
+    (16) constant -> REAL_CONST .
+    SEMI            reduce using rule 16 (constant -> REAL_CONST .)
+    OR              reduce using rule 16 (constant -> REAL_CONST .)
+    AND             reduce using rule 16 (constant -> REAL_CONST .)
+    NE              reduce using rule 16 (constant -> REAL_CONST .)
+    EQ              reduce using rule 16 (constant -> REAL_CONST .)
+    GE              reduce using rule 16 (constant -> REAL_CONST .)
+    GT              reduce using rule 16 (constant -> REAL_CONST .)
+    LE              reduce using rule 16 (constant -> REAL_CONST .)
+    LT              reduce using rule 16 (constant -> REAL_CONST .)
+    RPAREN          reduce using rule 16 (constant -> REAL_CONST .)
+
+
+state 28
+
+    (17) constant -> INT_CONST .
+    SEMI            reduce using rule 17 (constant -> INT_CONST .)
+    OR              reduce using rule 17 (constant -> INT_CONST .)
+    AND             reduce using rule 17 (constant -> INT_CONST .)
+    NE              reduce using rule 17 (constant -> INT_CONST .)
+    EQ              reduce using rule 17 (constant -> INT_CONST .)
+    GE              reduce using rule 17 (constant -> INT_CONST .)
+    GT              reduce using rule 17 (constant -> INT_CONST .)
+    LE              reduce using rule 17 (constant -> INT_CONST .)
+    LT              reduce using rule 17 (constant -> INT_CONST .)
+    RPAREN          reduce using rule 17 (constant -> INT_CONST .)
+
+
+state 29
+
+    (7) order -> ORDER COLON id_list SEMI .
+    FILTER          reduce using rule 7 (order -> ORDER COLON id_list SEMI .)
+    $end            reduce using rule 7 (order -> ORDER COLON id_list SEMI .)
+
+
+state 30
+
+    (9) id_list -> id_list COMMA . id
+    (11) id -> . ID
+    ID              shift and go to state 13
+
+    id                             shift and go to state 44
+
+state 31
+
+    (8) filter -> FILTER COLON expression SEMI .
+    ORDER           reduce using rule 8 (filter -> FILTER COLON expression SEMI .)
+    $end            reduce using rule 8 (filter -> FILTER COLON expression SEMI .)
+
+
+state 32
+
+    (18) expression -> expression OR . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 45
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 33
+
+    (19) expression -> expression AND . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 46
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 34
+
+    (20) expression -> expression NE . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 47
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 35
+
+    (21) expression -> expression EQ . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 48
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 36
+
+    (22) expression -> expression GE . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 49
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 37
+
+    (23) expression -> expression GT . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 50
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 38
+
+    (24) expression -> expression LE . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 51
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 39
+
+    (25) expression -> expression LT . expression
+    (18) expression -> . expression OR expression
+    (19) expression -> . expression AND expression
+    (20) expression -> . expression NE expression
+    (21) expression -> . expression EQ expression
+    (22) expression -> . expression GE expression
+    (23) expression -> . expression GT expression
+    (24) expression -> . expression LE expression
+    (25) expression -> . expression LT expression
+    (26) expression -> . unary_expression
+    (27) unary_expression -> . NOT unary_expression
+    (28) unary_expression -> . MINUS unary_expression
+    (29) unary_expression -> . PLUS unary_expression
+    (30) unary_expression -> . primary_expression
+    (31) primary_expression -> . LPAREN expression RPAREN
+    (32) primary_expression -> . constant
+    (33) primary_expression -> . id
+    (12) constant -> . FALSE
+    (13) constant -> . TRUE
+    (14) constant -> . CHAR_CONST
+    (15) constant -> . STRING_LITERAL
+    (16) constant -> . REAL_CONST
+    (17) constant -> . INT_CONST
+    (11) id -> . ID
+    NOT             shift and go to state 16
+    MINUS           shift and go to state 17
+    PLUS            shift and go to state 18
+    LPAREN          shift and go to state 20
+    FALSE           shift and go to state 23
+    TRUE            shift and go to state 24
+    CHAR_CONST      shift and go to state 25
+    STRING_LITERAL  shift and go to state 26
+    REAL_CONST      shift and go to state 27
+    INT_CONST       shift and go to state 28
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 52
+    unary_expression               shift and go to state 15
+    primary_expression             shift and go to state 19
+    constant                       shift and go to state 21
+    id                             shift and go to state 22
+
+state 40
+
+    (27) unary_expression -> NOT unary_expression .
+    SEMI            reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    OR              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    AND             reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    NE              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    EQ              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    GE              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    GT              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    LE              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    LT              reduce using rule 27 (unary_expression -> NOT unary_expression .)
+    RPAREN          reduce using rule 27 (unary_expression -> NOT unary_expression .)
+
+
+state 41
+
+    (28) unary_expression -> MINUS unary_expression .
+    SEMI            reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    OR              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    AND             reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    NE              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    EQ              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    GE              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    GT              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    LE              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    LT              reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+    RPAREN          reduce using rule 28 (unary_expression -> MINUS unary_expression .)
+
+
+state 42
+
+    (29) unary_expression -> PLUS unary_expression .
+    SEMI            reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    OR              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    AND             reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    NE              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    EQ              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    GE              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    GT              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    LE              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    LT              reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+    RPAREN          reduce using rule 29 (unary_expression -> PLUS unary_expression .)
+
+
+state 43
+
+    (31) primary_expression -> LPAREN expression . RPAREN
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    RPAREN          shift and go to state 53
+    OR              shift and go to state 32
+    AND             shift and go to state 33
+    NE              shift and go to state 34
+    EQ              shift and go to state 35
+    GE              shift and go to state 36
+    GT              shift and go to state 37
+    LE              shift and go to state 38
+    LT              shift and go to state 39
+
+
+state 44
+
+    (9) id_list -> id_list COMMA id .
+    SEMI            reduce using rule 9 (id_list -> id_list COMMA id .)
+    COMMA           reduce using rule 9 (id_list -> id_list COMMA id .)
+
+
+state 45
+
+    (18) expression -> expression OR expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 18 (expression -> expression OR expression .)
+    OR              reduce using rule 18 (expression -> expression OR expression .)
+    RPAREN          reduce using rule 18 (expression -> expression OR expression .)
+    AND             shift and go to state 33
+    NE              shift and go to state 34
+    EQ              shift and go to state 35
+    GE              shift and go to state 36
+    GT              shift and go to state 37
+    LE              shift and go to state 38
+    LT              shift and go to state 39
+
+
+state 46
+
+    (19) expression -> expression AND expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 19 (expression -> expression AND expression .)
+    OR              reduce using rule 19 (expression -> expression AND expression .)
+    AND             reduce using rule 19 (expression -> expression AND expression .)
+    RPAREN          reduce using rule 19 (expression -> expression AND expression .)
+    NE              shift and go to state 34
+    EQ              shift and go to state 35
+    GE              shift and go to state 36
+    GT              shift and go to state 37
+    LE              shift and go to state 38
+    LT              shift and go to state 39
+
+
+state 47
+
+    (20) expression -> expression NE expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 20 (expression -> expression NE expression .)
+    OR              reduce using rule 20 (expression -> expression NE expression .)
+    AND             reduce using rule 20 (expression -> expression NE expression .)
+    NE              reduce using rule 20 (expression -> expression NE expression .)
+    EQ              reduce using rule 20 (expression -> expression NE expression .)
+    RPAREN          reduce using rule 20 (expression -> expression NE expression .)
+    GE              shift and go to state 36
+    GT              shift and go to state 37
+    LE              shift and go to state 38
+    LT              shift and go to state 39
+
+
+state 48
+
+    (21) expression -> expression EQ expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 21 (expression -> expression EQ expression .)
+    OR              reduce using rule 21 (expression -> expression EQ expression .)
+    AND             reduce using rule 21 (expression -> expression EQ expression .)
+    NE              reduce using rule 21 (expression -> expression EQ expression .)
+    EQ              reduce using rule 21 (expression -> expression EQ expression .)
+    RPAREN          reduce using rule 21 (expression -> expression EQ expression .)
+    GE              shift and go to state 36
+    GT              shift and go to state 37
+    LE              shift and go to state 38
+    LT              shift and go to state 39
+
+
+state 49
+
+    (22) expression -> expression GE expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 22 (expression -> expression GE expression .)
+    OR              reduce using rule 22 (expression -> expression GE expression .)
+    AND             reduce using rule 22 (expression -> expression GE expression .)
+    NE              reduce using rule 22 (expression -> expression GE expression .)
+    EQ              reduce using rule 22 (expression -> expression GE expression .)
+    GE              reduce using rule 22 (expression -> expression GE expression .)
+    GT              reduce using rule 22 (expression -> expression GE expression .)
+    LE              reduce using rule 22 (expression -> expression GE expression .)
+    LT              reduce using rule 22 (expression -> expression GE expression .)
+    RPAREN          reduce using rule 22 (expression -> expression GE expression .)
+
+
+state 50
+
+    (23) expression -> expression GT expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 23 (expression -> expression GT expression .)
+    OR              reduce using rule 23 (expression -> expression GT expression .)
+    AND             reduce using rule 23 (expression -> expression GT expression .)
+    NE              reduce using rule 23 (expression -> expression GT expression .)
+    EQ              reduce using rule 23 (expression -> expression GT expression .)
+    GE              reduce using rule 23 (expression -> expression GT expression .)
+    GT              reduce using rule 23 (expression -> expression GT expression .)
+    LE              reduce using rule 23 (expression -> expression GT expression .)
+    LT              reduce using rule 23 (expression -> expression GT expression .)
+    RPAREN          reduce using rule 23 (expression -> expression GT expression .)
+
+
+state 51
+
+    (24) expression -> expression LE expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 24 (expression -> expression LE expression .)
+    OR              reduce using rule 24 (expression -> expression LE expression .)
+    AND             reduce using rule 24 (expression -> expression LE expression .)
+    NE              reduce using rule 24 (expression -> expression LE expression .)
+    EQ              reduce using rule 24 (expression -> expression LE expression .)
+    GE              reduce using rule 24 (expression -> expression LE expression .)
+    GT              reduce using rule 24 (expression -> expression LE expression .)
+    LE              reduce using rule 24 (expression -> expression LE expression .)
+    LT              reduce using rule 24 (expression -> expression LE expression .)
+    RPAREN          reduce using rule 24 (expression -> expression LE expression .)
+
+
+state 52
+
+    (25) expression -> expression LT expression .
+    (18) expression -> expression . OR expression
+    (19) expression -> expression . AND expression
+    (20) expression -> expression . NE expression
+    (21) expression -> expression . EQ expression
+    (22) expression -> expression . GE expression
+    (23) expression -> expression . GT expression
+    (24) expression -> expression . LE expression
+    (25) expression -> expression . LT expression
+    SEMI            reduce using rule 25 (expression -> expression LT expression .)
+    OR              reduce using rule 25 (expression -> expression LT expression .)
+    AND             reduce using rule 25 (expression -> expression LT expression .)
+    NE              reduce using rule 25 (expression -> expression LT expression .)
+    EQ              reduce using rule 25 (expression -> expression LT expression .)
+    GE              reduce using rule 25 (expression -> expression LT expression .)
+    GT              reduce using rule 25 (expression -> expression LT expression .)
+    LE              reduce using rule 25 (expression -> expression LT expression .)
+    LT              reduce using rule 25 (expression -> expression LT expression .)
+    RPAREN          reduce using rule 25 (expression -> expression LT expression .)
+
+
+state 53
+
+    (31) primary_expression -> LPAREN expression RPAREN .
+    SEMI            reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    NE              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    EQ              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    GE              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    GT              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    LE              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    LT              reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 31 (primary_expression -> LPAREN expression RPAREN .)
