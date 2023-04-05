@@ -25,11 +25,10 @@ class Visitor(NodeVisitor):
             3: f"Binary operator {name} does not have matching LHS/RHS types - {ltype} and {rtype}",
             4: f"Binary operator {name} is not supported by {ltype}",
             5: f"Unary operator {name} is not supported by {ltype}",
-
         }
         if not condition:
             msg = error_msgs[msg_code]  # invalid msg_code raises Exception
-            print("SemanticError: %s %s" % (msg, coord), file=sys.stdout)
+            print("Semantic error: %s %s" % (msg, coord), file=sys.stdout)
             sys.exit(1)
 
     def visit_Program(self, node: Program):

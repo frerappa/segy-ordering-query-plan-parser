@@ -5,24 +5,20 @@ from sly import Lexer
 
 
 class QPLexer(Lexer):
-    def __init__(self, error_func):
+    def __init__(self):
         """Create a new Lexer.
         An error function. Will be called with an error
         message, line and column as arguments, in case of
         an error during lexing.
         """
-        self.error_func = error_func
         self.filename = ""
 
         # Keeps track of the last token returned from self.token()
         self.last_token = None
 
-    def build(self, **kwargs):
-        return
-
-    def reset_lineno(self):
-        """Resets the internal line number counter of the lexer."""
-        self.lineno = 1
+    def _print_error(self, msg: str, x: int, y: int):
+        # use stdout to match with the output in the .out test files
+        print("Lexical error: %s at %d:%d" % (msg, x, y), file=sys.stdout)
 
     def find_tok_column(self, token):
         """Find the column of the token in its line."""
@@ -31,10 +27,9 @@ class QPLexer(Lexer):
             last_cr = 0
         return token.index - last_cr
 
-    # Internal auxiliary methods
     def _error(self, msg, token):
         location = self._make_tok_location(token)
-        self.error_func(msg, location[0], location[1])
+        self._print_error(msg, location[0], location[1])
         self.index += 1
 
     def _make_tok_location(self, token):
@@ -84,7 +79,7 @@ class QPLexer(Lexer):
         "EQ",  # =
         "NE",  # !=
 
-        # Delimeters
+        # Delimiters
         "LPAREN",  # (
         "RPAREN",  # )
         "COMMA",  # ,
@@ -98,7 +93,6 @@ class QPLexer(Lexer):
     ignore = " \t"
 
     # Newlines
-
     @_(r'\n+')
     def ignore_newlines(self, t):
         r'\n+'
@@ -114,7 +108,7 @@ class QPLexer(Lexer):
         t.lineno += t.value.count("\n")
 
     @_('/-(.|\n)*')
-    def unterminatedcomment(self, t):
+    def unterminated_comment(self, t):
         msg = "Unterminated comment"
         self._error(msg, t)
 
@@ -201,15 +195,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
 
-    def print_error(msg, x, y):
-        # use stdout to match with the output in the .out test files
-        print("Lexical error: %s at %d:%d" % (msg, x, y), file=sys.stdout)
-
-
-    # set error function
-    m = QPLexer(print_error)
-    # Build the lexer
-    m.build()
+    lexer = QPLexer()
     # open file and print tokens
     with open(input_path) as f:
-        m.scan(f.read())
+        lexer.scan(f.read())

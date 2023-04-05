@@ -10,9 +10,7 @@ from node_visitor import *
 
 class TranslationVisitor(NodeVisitor):
     def __init__(self):
-        # Initialize the symbol table
         self.table_name = "Table"
-
 
     def visit_Program(self, node: Program):
         filter_text = ""
@@ -84,7 +82,7 @@ if __name__ == "__main__":
     # create argument parser
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "input_file", help="Path to file to be semantically checked", type=str
+        "input_file", help="Path to file to be translated to SQL", type=str
     )
     args = parser.parse_args()
 

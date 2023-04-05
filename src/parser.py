@@ -25,7 +25,7 @@ class QPParser(Parser):
     debugfile = 'parser.out'
 
     def __init__(self, debug=True):
-        self.lex = QPLexer(self._lexer_error)
+        self.lex = QPLexer()
         self.lex.build()
 
         # Keeps track of the last token given to yacc (the lookahead token)
@@ -34,17 +34,11 @@ class QPParser(Parser):
     def parse_text(self, text: str):
         return self.parse(self.lex.tokenize(text))
 
-    def _lexer_error(self, msg, line, column):
-        # use stdout to match with the output in the .out test files
-        print("LexerError: %s at %d:%d" % (msg, line, column), file=sys.stdout)
-        sys.exit(1)
-
-    def _parser_error(self, msg, coord=None):
-        # use stdout to match with the output in the .out test files
+    def _parser_error(self, msg: str, coord: Coord = None):
         if coord is None:
-            print("ParserError: %s" % (msg), file=sys.stdout)
+            print("Parser error: %s" % (msg), file=sys.stdout)
         else:
-            print("ParserError: %s %s" % (msg, coord), file=sys.stdout)
+            print("Parser error: %s %s" % (msg, coord), file=sys.stdout)
         sys.exit(1)
 
     def _token_coord(self, p):
@@ -168,15 +162,8 @@ if __name__ == "__main__":
         print("ERROR: Input", input_path, "not found", file=sys.stderr)
         sys.exit(1)
 
-
-    def print_error(msg, x, y):
-        print("Lexical error: %s at %d:%d" % (msg, x, y), file=sys.stderr)
-
-
-    # set error function
-    p = QPParser()
-    l = QPLexer(p._lexer_error)
+    parser = QPParser()
     # open file and print ast
     with open(input_path) as f:
-        ast = p.parse_text(f.read())
+        ast = parser.parse_text(f.read())
         ast.show(buf=sys.stdout, showcoord=True)
