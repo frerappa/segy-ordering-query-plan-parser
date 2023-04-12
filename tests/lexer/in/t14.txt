@@ -1,2 +1,9 @@
-fillter
-A = 10
+/-
+
+comentario em bloco
+
+-/
+
+filter:
+name = "data value";
+

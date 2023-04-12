@@ -1,14 +1,13 @@
 import argparse
 import pathlib
-from copy import deepcopy
-from typing import Any, Dict, Union
+from typing import Dict
 from parser import QPParser
-from src.qp_types import *
-from coord import Coord
+from src.utils.qp_types import *
+from src.utils.coord import Coord
 from src.qp_ast import *
-from node_visitor import *
+from src.utils.node_visitor import *
 
-class Visitor(NodeVisitor):
+class SemanticVisitor(NodeVisitor):
     def __init__(self):
         self.typemap: Dict[str, Type] = {
             "number": NumberType,
@@ -16,9 +15,9 @@ class Visitor(NodeVisitor):
             "bool": BooleanType,
             "string": StringType
         }
+        self._found_error = False
 
-    def _assert_semantic(self, condition: bool, msg_code: int, coord, name: str = "", ltype: str = "", rtype: str = ""):
-        """Check condition, if false print selected error message and exit"""
+    def _assert_semantic(self, condition: bool, msg_code: int, coord: Coord, name: str = "", ltype: str = "", rtype: str = ""):
         error_msgs = {
             1: f"Filter statement must contain a boolean expression, not {name}",
             2: "Order expression must contain identifiers",
@@ -29,7 +28,7 @@ class Visitor(NodeVisitor):
         if not condition:
             msg = error_msgs[msg_code]  # invalid msg_code raises Exception
             print("Semantic error: %s %s" % (msg, coord), file=sys.stdout)
-            sys.exit(1)
+            self._found_error = True
 
     def visit_Program(self, node: Program):
         for step in node.steps:
@@ -50,7 +49,7 @@ class Visitor(NodeVisitor):
             ltype=expression_type
         )
 
-        node.type: Type = expression_type
+        node.type = expression_type
 
     def visit_BinaryOp(self, node: BinaryOp):
         self.visit(node.lvalue)
@@ -79,11 +78,10 @@ class Visitor(NodeVisitor):
         node.type = BooleanType
 
     def visit_ID(self, node: ID):
-        node.type: Type = NumberType
-        pass
+        node.type = NumberType
 
     def visit_Constant(self, node: Constant):
-        node.type: Type = self.typemap[node.type]
+        node.type = self.typemap[node.type]
 
     def visit_Order(self, node: Order):
         for expression in node.orderings:
@@ -104,6 +102,8 @@ class Visitor(NodeVisitor):
             node.expression.coord
         )
 
+    def has_error(self):
+        return self._found_error
 
 if __name__ == "__main__":
     # create argument parser
@@ -127,5 +127,5 @@ if __name__ == "__main__":
     # open file and parse it
     with open(input_path) as f:
         ast = p.parse_text(f.read())
-        sema = Visitor()
+        sema = SemanticVisitor()
         sema.visit(ast)

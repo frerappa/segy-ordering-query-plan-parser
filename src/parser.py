@@ -2,8 +2,8 @@ import sys
 import argparse
 import pathlib
 from sly import Parser
-from lexer import QPLexer
-from coord import Coord
+from src.lexer import QPLexer
+from src.utils.coord import Coord
 from src.qp_ast import *
 
 
@@ -22,24 +22,19 @@ class QPParser(Parser):
 
     start = 'program'
 
-    debugfile = 'parser.out'
-
-    def __init__(self, debug=True):
-        self.lex = QPLexer()
-        self.lex.build()
-
-        # Keeps track of the last token given to yacc (the lookahead token)
-        self._last_yielded_token = None
+    def __init__(self, lexer=QPLexer()):
+        self.lex = lexer
+        self._found_error = False
 
     def parse_text(self, text: str):
         return self.parse(self.lex.tokenize(text))
 
     def _parser_error(self, msg: str, coord: Coord = None):
         if coord is None:
-            print("Parser error: %s" % (msg), file=sys.stdout)
+            print("Parser error: %s" % msg, file=sys.stdout)
         else:
             print("Parser error: %s %s" % (msg, coord), file=sys.stdout)
-        sys.exit(1)
+        self._found_error = True
 
     def _token_coord(self, p):
         return Coord(p.lineno, self.lex.find_tok_column(p))
@@ -145,6 +140,8 @@ class QPParser(Parser):
         else:
             self._parser_error("At the end of input (%s)" % self.lex.filename)
 
+    def has_error(self):
+        return self._found_error
 
 if __name__ == "__main__":
 

@@ -6,19 +6,10 @@ from sly import Lexer
 
 class QPLexer(Lexer):
     def __init__(self):
-        """Create a new Lexer.
-        An error function. Will be called with an error
-        message, line and column as arguments, in case of
-        an error during lexing.
-        """
-        self.filename = ""
-
-        # Keeps track of the last token returned from self.token()
-        self.last_token = None
+        self._found_error = False
 
     def _print_error(self, msg: str, x: int, y: int):
-        # use stdout to match with the output in the .out test files
-        print("Lexical error: %s at %d:%d" % (msg, x, y), file=sys.stdout)
+        print("Lexical error: %s @ %d:%d" % (msg, x, y), file=sys.stdout)
 
     def find_tok_column(self, token):
         """Find the column of the token in its line."""
@@ -28,6 +19,7 @@ class QPLexer(Lexer):
         return token.index - last_cr
 
     def _error(self, msg, token):
+        self._found_error = True
         location = self._make_tok_location(token)
         self._print_error(msg, location[0], location[1])
         self.index += 1
@@ -176,6 +168,12 @@ class QPLexer(Lexer):
             print(token)
             output += str(token) + "\n"
         return output
+
+    def tokenize(self, text, lineno=1, index=0):
+        return super().tokenize(text, lineno, index)
+
+    def has_error(self) -> bool:
+        return self._found_error
 
 
 if __name__ == "__main__":

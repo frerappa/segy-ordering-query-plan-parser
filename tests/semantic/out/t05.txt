@@ -1,0 +1,5 @@
+Program: @ 1:0
+    Filter: @ 1:0
+        BinaryOp: = @ 2:1
+            ID: name @ 2:1
+            Constant: string, data value @ 2:8

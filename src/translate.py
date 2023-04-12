@@ -1,11 +1,9 @@
 import argparse
 import pathlib
-from copy import deepcopy
-from typing import Any, Dict, Union
 from parser import QPParser
-from semantic import Visitor
+from semantic import SemanticVisitor
 from src.qp_ast import *
-from node_visitor import *
+from src.utils.node_visitor import *
 
 
 class TranslationVisitor(NodeVisitor):
@@ -100,7 +98,7 @@ if __name__ == "__main__":
     # open file and parse it
     with open(input_path) as f:
         ast = p.parse_text(f.read())
-        visitor = Visitor()
+        visitor = SemanticVisitor()
         visitor.visit(ast)
         translator = TranslationVisitor()
         translator.visit(ast)

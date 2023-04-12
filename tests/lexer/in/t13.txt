@@ -1,2 +1,2 @@
-filter
-A = 10;
+filter:
+name = "data value;

@@ -1,4 +1,11 @@
+/----------------
+
+ -------------------------
+ codigo comentado
+
 filter:
-_f < 10 aasdasnd
-c > 9 :
+name = "data value;
+
+
+-/
 

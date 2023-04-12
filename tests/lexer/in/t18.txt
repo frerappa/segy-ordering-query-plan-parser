@@ -1,4 +1,2 @@
 filter:
-b  10 or
-(a =< 9 or metadata      = 11);
-
+A = 10..;

@@ -1,2 +1,6 @@
-fillter
-A = 10
+Token(type='FILTER', value='filter', lineno=3, index=29, end=35)
+Token(type='COLON', value=':', lineno=3, index=35, end=36)
+Token(type='ID', value='name', lineno=4, index=37, end=41)
+Token(type='EQ', value='=', lineno=4, index=42, end=43)
+Token(type='STRING_LITERAL', value='data value', lineno=4, index=44, end=56)
+Token(type='SEMI', value=';', lineno=4, index=56, end=57)

@@ -1,0 +1,7 @@
+Program: @ 1:0
+    Filter: @ 1:0
+        UnaryOp: not @ 2:1
+            UnaryOp: not @ 2:5
+                BinaryOp: != @ 2:10
+                    ID: VALUE @ 2:10
+                    Constant: number, 0 @ 2:19

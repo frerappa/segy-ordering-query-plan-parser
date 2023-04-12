@@ -1,2 +1,14 @@
-filter:
-name = "data value";
+Token(type='FILTER', value='filter', lineno=1, index=0, end=6)
+Token(type='COLON', value=':', lineno=1, index=6, end=7)
+Token(type='ID', value='VALUE', lineno=2, index=8, end=13)
+Token(type='GE', value='>=', lineno=2, index=14, end=16)
+Token(type='MINUS', value='-', lineno=2, index=17, end=18)
+Token(type='REAL_CONST', value=0.7866, lineno=2, index=18, end=24)
+Token(type='AND', value='and', lineno=2, index=25, end=28)
+Token(type='NOT', value='not', lineno=2, index=29, end=32)
+Token(type='LPAREN', value='(', lineno=2, index=33, end=34)
+Token(type='ID', value='VALUE', lineno=2, index=34, end=39)
+Token(type='GT', value='>', lineno=2, index=40, end=41)
+Token(type='INT_CONST', value=0, lineno=2, index=42, end=43)
+Token(type='RPAREN', value=')', lineno=2, index=43, end=44)
+Token(type='SEMI', value=';', lineno=2, index=44, end=45)

@@ -1,7 +1,5 @@
-filter:
--10 < cdp < +99.6;
-
-filter:
-_f < 10 aasdasnd
-c > 9 :
-
+Token(type='EQ', value='=', lineno=1, index=81, end=82)
+Lexical error: Unterminated string at 1:11
+Token(type='ID', value='ata', lineno=1, index=85, end=88)
+Token(type='ID', value='value', lineno=1, index=89, end=94)
+Token(type='SEMI', value=';', lineno=1, index=94, end=95)

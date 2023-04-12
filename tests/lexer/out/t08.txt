@@ -1,2 +1,8 @@
-filter:
-VALUE >= -0.7866 and not (VALUE > 0);
+Token(type='ORDER', value='order', lineno=1, index=0, end=5)
+Token(type='COLON', value=':', lineno=1, index=5, end=6)
+Token(type='ID', value='metadata_45435_value', lineno=2, index=7, end=27)
+Token(type='COMMA', value=',', lineno=2, index=27, end=28)
+Token(type='ID', value='cfp_y', lineno=2, index=29, end=34)
+Token(type='COMMA', value=',', lineno=2, index=34, end=35)
+Token(type='ID', value='CDP_X', lineno=2, index=36, end=41)
+Token(type='SEMI', value=';', lineno=2, index=41, end=42)

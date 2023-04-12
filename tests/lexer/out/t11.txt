@@ -1,2 +1,21 @@
-order:
-metadata_45435_value, cfp_y, CDP_X;
+Token(type='FILTER', value='filter', lineno=1, index=0, end=6)
+Token(type='COLON', value=':', lineno=1, index=6, end=7)
+Token(type='MINUS', value='-', lineno=2, index=8, end=9)
+Token(type='INT_CONST', value=10, lineno=2, index=9, end=11)
+Token(type='LT', value='<', lineno=2, index=12, end=13)
+Token(type='ID', value='cdp', lineno=2, index=14, end=17)
+Token(type='LT', value='<', lineno=2, index=18, end=19)
+Token(type='PLUS', value='+', lineno=2, index=20, end=21)
+Token(type='REAL_CONST', value=99.6, lineno=2, index=21, end=25)
+Token(type='SEMI', value=';', lineno=2, index=25, end=26)
+Token(type='FILTER', value='filter', lineno=4, index=28, end=34)
+Token(type='COLON', value=':', lineno=4, index=34, end=35)
+Lexical error: Illegal character '_' at 5:1
+Token(type='ID', value='f', lineno=5, index=37, end=38)
+Token(type='LT', value='<', lineno=5, index=39, end=40)
+Token(type='INT_CONST', value=10, lineno=5, index=41, end=43)
+Token(type='ID', value='aasdasnd', lineno=5, index=44, end=52)
+Token(type='ID', value='c', lineno=6, index=53, end=54)
+Token(type='GT', value='>', lineno=6, index=55, end=56)
+Token(type='INT_CONST', value=9, lineno=6, index=57, end=58)
+Token(type='COLON', value=':', lineno=6, index=59, end=60)

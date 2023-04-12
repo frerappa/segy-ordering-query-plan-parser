@@ -1,3 +1,9 @@
-filter:
--10 < cdp < 99.6;
-
+Token(type='FILTER', value='filter', lineno=1, index=0, end=6)
+Token(type='COLON', value=':', lineno=1, index=6, end=7)
+Token(type='MINUS', value='-', lineno=2, index=8, end=9)
+Token(type='INT_CONST', value=10, lineno=2, index=9, end=11)
+Token(type='LT', value='<', lineno=2, index=12, end=13)
+Token(type='ID', value='cdp', lineno=2, index=14, end=17)
+Token(type='LT', value='<', lineno=2, index=18, end=19)
+Token(type='REAL_CONST', value=99.6, lineno=2, index=20, end=24)
+Token(type='SEMI', value=';', lineno=2, index=24, end=25)

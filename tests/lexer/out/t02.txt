@@ -1,4 +1,10 @@
-filter:
-b < 10 and
-c > 9;
-
+Token(type='FILTER', value='filter', lineno=1, index=0, end=6)
+Token(type='COLON', value=':', lineno=1, index=6, end=7)
+Token(type='ID', value='b', lineno=2, index=8, end=9)
+Token(type='LT', value='<', lineno=2, index=10, end=11)
+Token(type='INT_CONST', value=10, lineno=2, index=12, end=14)
+Token(type='AND', value='and', lineno=2, index=15, end=18)
+Token(type='ID', value='c', lineno=3, index=19, end=20)
+Token(type='GT', value='>', lineno=3, index=21, end=22)
+Token(type='INT_CONST', value=9, lineno=3, index=23, end=24)
+Token(type='SEMI', value=';', lineno=3, index=24, end=25)

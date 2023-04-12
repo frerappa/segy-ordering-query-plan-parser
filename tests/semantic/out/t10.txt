@@ -1,0 +1,24 @@
+Program: @ 1:0
+    Filter: @ 1:0
+        BinaryOp: and @ 2:1
+            BinaryOp: and @ 2:1
+                BinaryOp: < @ 2:1
+                    BinaryOp: < @ 2:1
+                        UnaryOp: - @ 2:1
+                            Constant: number, 10 @ 2:2
+                        ID: cdp @ 2:7
+                    Constant: number, 99.6 @ 2:13
+                BinaryOp: or @ 2:23
+                    BinaryOp: < @ 2:23
+                        Constant: number, 1 @ 2:23
+                        Constant: number, 2 @ 2:27
+                    BinaryOp: != @ 2:32
+                        UnaryOp: not @ 2:32
+                            Constant: number, 1 @ 2:36
+                        Constant: number, 1 @ 2:41
+            BinaryOp: < @ 2:48
+                Constant: number, 10000 @ 2:48
+                ID: metadata77 @ 2:56
+    Order: @ 3:1
+        ID: metadataX @ 4:1
+        ID: metadataY @ 4:12

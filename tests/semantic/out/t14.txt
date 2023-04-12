@@ -1,0 +1,14 @@
+Program: @ 1:0
+    Filter: @ 1:0
+        BinaryOp: or @ 2:1
+            BinaryOp: and @ 2:1
+                ID: b @ 2:1
+                UnaryOp: not @ 2:8
+                    Constant: number, 10 @ 2:12
+            BinaryOp: or @ 3:2
+                BinaryOp: <= @ 3:2
+                    ID: a @ 3:2
+                    Constant: number, 9 @ 3:7
+                BinaryOp: = @ 3:12
+                    ID: metadata @ 3:12
+                    Constant: number, 11 @ 3:28
