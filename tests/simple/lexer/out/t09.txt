@@ -1,0 +1,6 @@
+Token(type='ID', value='fillter', lineno=1, index=0, end=7)
+Token(type='COLON', value=':', lineno=1, index=7, end=8)
+Token(type='ID', value='A', lineno=2, index=9, end=10)
+Token(type='EQ', value='=', lineno=2, index=11, end=12)
+Token(type='INT_CONST', value=10, lineno=2, index=13, end=15)
+Token(type='SEMI', value=';', lineno=2, index=15, end=16)

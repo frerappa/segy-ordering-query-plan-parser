@@ -1,10 +1,10 @@
 import argparse
 import pathlib
 from typing import Dict
-from parser import QPParser
+from src.simple.parser import QPParser
 from src.utils.qp_types import *
 from src.utils.coord import Coord
-from src.qp_ast import *
+from src.simple.qp_ast import *
 from src.utils.node_visitor import *
 
 class SemanticVisitor(NodeVisitor):

@@ -1,9 +1,7 @@
-import pytest
 from pathlib import Path
-from src.parser import QPParser
+import pytest
+from src.simple.lexer import QPLexer
 from tests.utils import resolve_test_files
-from io import StringIO  # Python 3
-
 
 
 @pytest.mark.parametrize(
@@ -25,16 +23,18 @@ from io import StringIO  # Python 3
         "t14",
         "t15",
         "t16",
+        "t17",
+        "t18",
+        "t19",
+        "t20",
     ],
 )
-# capfd will capture the stdout/stderr outputs generated during the test
-def test_semantic(test_name, capfd):
+def test_lexer(test_name, capfd):
     input_path, expected_path = resolve_test_files(test_name, Path(__file__).parent.absolute())
 
-    parser = QPParser()
+    m = QPLexer()
     with open(input_path) as f_in, open(expected_path) as f_ex:
-        temp_out = StringIO()
-        ast = parser.parse_text(f_in.read())
-        ast.show(temp_out, showcoord=True)
+        m.scan(f_in.read())
+        captured = capfd.readouterr()
         expect = f_ex.read()
-    assert temp_out.getvalue() == expect
+    assert captured.out == expect

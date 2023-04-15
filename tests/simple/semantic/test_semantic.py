@@ -1,6 +1,6 @@
 import pytest
 from pathlib import Path
-from src.parser import QPParser
+from src.simple.parser import QPParser
 from tests.utils import resolve_test_files
 from io import StringIO  # Python 3
 
@@ -28,7 +28,7 @@ from io import StringIO  # Python 3
     ],
 )
 # capfd will capture the stdout/stderr outputs generated during the test
-def test_parser(test_name, capfd):
+def test_semantic(test_name, capfd):
     input_path, expected_path = resolve_test_files(test_name, Path(__file__).parent.absolute())
 
     parser = QPParser()

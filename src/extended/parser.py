@@ -2,13 +2,12 @@ import sys
 import argparse
 import pathlib
 from sly import Parser
-from src.lexer import QPLexer
+from src.extended.lexer import QPLexerExtended
 from src.utils.coord import Coord
-from src.qp_ast import *
+from src.extended.qp_ast import *
 
-
-class QPParser(Parser):
-    tokens = QPLexer.tokens
+class QPParserExtended(Parser):
+    tokens = QPLexerExtended.tokens
 
     precedence = (
         ('left', 'COMMA'),
@@ -22,7 +21,7 @@ class QPParser(Parser):
 
     start = 'program'
 
-    def __init__(self, lexer=QPLexer()):
+    def __init__(self, lexer=QPLexerExtended()):
         self.lex = lexer
         self._found_error = False
 
@@ -61,19 +60,25 @@ class QPParser(Parser):
 
     @_('ORDER COLON id_list SEMI')
     def order(self, p):
-        return Order(p.id_list, self._token_coord(p))
+        orderings, descending = p.id_list
+        return Order(orderings, descending, self._token_coord(p))
 
     @_('FILTER COLON expression SEMI')
     def filter(self, p):
         return Filter(p.expression, self._token_coord(p))
 
-    @_('id')
-    def id_list(self, p):
-        return [p.id]
+    @_('id',
+       'id DESC')
+    def order_id(self, p):
+        return (p.id, hasattr(p, 'DESC'))
 
-    @_('id_list COMMA id')
+    @_('order_id')
     def id_list(self, p):
-        return p.id_list + [p.id]
+        return [p.order_id[0]], [p.order_id[1]]
+
+    @_('id_list COMMA order_id')
+    def id_list(self, p):
+        return p.id_list[0] + [p.order_id[0]], p.id_list[1] + [p.order_id[1]]
 
     @_('ID')
     def id(self, p):
@@ -97,9 +102,10 @@ class QPParser(Parser):
     def constant(self, p):
         return Constant('bool', p[0], self._token_coord(p))
 
-    @_('unary_expression')
+    @_('unary_expression',
+       'range_expression')
     def expression(self, p):
-        return p.unary_expression
+        return p[0]
 
     @_('expression LT expression',
        'expression LE expression',
@@ -122,6 +128,16 @@ class QPParser(Parser):
     def unary_expression(self, p):
         return UnaryOp(p[0].lower(), p.unary_expression, self._token_coord(p))
 
+    @_('id IN RANGE LPAREN unary_expression_range COMMA unary_expression_range RPAREN')
+    def range_expression(self, p):
+        lower_value, lower_included = p[4]
+        upper_value, upper_included = p[6]
+        return Range(p.id, lower_value, upper_value, lower_included, upper_included, coord=self._token_coord(p))
+
+    @_('unary_expression',
+       'unary_expression INCL')
+    def unary_expression_range(self, p):
+        return p.unary_expression, hasattr(p, 'INCL')
 
     @_('id',
        'constant')
@@ -159,7 +175,7 @@ if __name__ == "__main__":
         print("ERROR: Input", input_path, "not found", file=sys.stderr)
         sys.exit(1)
 
-    parser = QPParser()
+    parser = QPParserExtended()
     # open file and print ast
     with open(input_path) as f:
         ast = parser.parse_text(f.read())

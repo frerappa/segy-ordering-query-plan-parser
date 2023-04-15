@@ -1,0 +1,17 @@
+filter:
+    (cdp >= 10 and
+    cdp <= 1 and
+    metadata35 != 5) or
+    data3 = 10
+    and datax in range(-5 INCL, 10.0);
+
+
+order:
+    metadata1 DESC,
+    metadata2,
+//    metadata7,
+    metadata3;
+
+/-
+    - This is a block comment
+-/

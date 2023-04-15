@@ -1,0 +1,1 @@
+SELECT * FROM Table WHERE ((((cdp >= 10) AND (cdp <= 1)) AND (metadata35 <> 5)) OR ((data3 = 10) AND (-5 <= datax AND datax < 10.0))) ORDER BY metadata1 DESC , metadata2 , metadata3 ;

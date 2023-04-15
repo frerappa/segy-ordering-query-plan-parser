@@ -1,0 +1,11 @@
+Token(type='FILTER', value='filter', lineno=1, index=0, end=6)
+Token(type='COLON', value=':', lineno=1, index=6, end=7)
+Lexical error: Illegal character '_' @ 2:1
+Token(type='ID', value='f', lineno=2, index=9, end=10)
+Token(type='LT', value='<', lineno=2, index=11, end=12)
+Token(type='INT_CONST', value=10, lineno=2, index=13, end=15)
+Token(type='ID', value='aasdasnd', lineno=2, index=16, end=24)
+Token(type='ID', value='c', lineno=3, index=25, end=26)
+Token(type='GT', value='>', lineno=3, index=27, end=28)
+Token(type='INT_CONST', value=9, lineno=3, index=29, end=30)
+Token(type='COLON', value=':', lineno=3, index=31, end=32)

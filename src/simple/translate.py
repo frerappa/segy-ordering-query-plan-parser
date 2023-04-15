@@ -1,8 +1,8 @@
 import argparse
 import pathlib
-from parser import QPParser
-from semantic import SemanticVisitor
-from src.qp_ast import *
+from src.simple.parser import QPParser
+from src.simple.semantic import SemanticVisitor
+from src.simple.qp_ast import *
 from src.utils.node_visitor import *
 
 
