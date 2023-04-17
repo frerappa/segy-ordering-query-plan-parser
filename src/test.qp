@@ -3,7 +3,7 @@ filter:
     cdp <= 1 and
     metadata35 != 5) or
     data3 = 10
-    and datax in range(-5 INCL, 10.0);
+    and dataX in range(-5 INCL, 10.0) and not (dataz < 1);
 
 
 order:

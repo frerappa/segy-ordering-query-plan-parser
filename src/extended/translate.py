@@ -9,7 +9,7 @@ from src.utils.node_visitor import *
 
 class TranslationVisitorExtended(NodeVisitor):
     def __init__(self):
-        self.table_name = "Table"
+        self.table_name = "table1"
 
     def visit_Program(self, node: Program):
         filter_text = ""

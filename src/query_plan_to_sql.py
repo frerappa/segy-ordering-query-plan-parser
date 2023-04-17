@@ -1,5 +1,6 @@
 import sys
 import argparse
+from typing import Any
 
 from src.simple.lexer import QPLexer
 from src.simple.parser import QPParser
@@ -13,7 +14,7 @@ from src.extended.translate import TranslationVisitorExtended
 
 
 class QueryPlanToSQL:
-    def translate(self, query_plan: str, version=2) -> str:
+    def translate(self, query_plan: str, version=2) -> str | None:
         if version == 1:
             lexer = QPLexer()
             parser = QPParser(lexer)
