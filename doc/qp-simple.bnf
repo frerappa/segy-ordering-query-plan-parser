@@ -1,0 +1,68 @@
+{
+  tokens=[
+          FILTER="filter"
+          ORDER="order"
+          OR="or"
+          AND="and"
+          NOT="not"
+          TRUE="true"
+          FALSE="false"
+          PLUS="plus"
+          MINUS="minus"
+          LT="<"
+          LE="<="
+          GT=">"
+          GE=">="
+          EQ="="
+          NE="!="
+          LPAREN="("
+          RPAREN=")"
+          COLON=":"
+          SEMI=";"
+          ID="regexp:[a-zA-Z][0-9a-zA-Z_]*"
+          INT_CONST="regexp:[0-9]+"
+          REAL_CONST="regexp:[0-9]+[.][0-9]+"
+          CHAR_CONST="regexp:\'.\'"
+          STRING_LITERAL="regexp:\"(\\.|[^\"\\])*\""
+          ]
+}
+
+<program> ::= <filter> <order>
+            | <order> <filter>
+            | <filter>
+            | <order>
+            | E
+
+<filter> ::= FILTER COLON <expression> SEMI
+
+<order> ::= ORDER COLON <id_list> SEMI
+
+<id_list> ::= <id>
+            | <id_list> COMMA <id>
+
+<expression> ::= <unary_expression>
+               | <expression>  LT   <expression>
+               | <expression>  LE  <expression>
+               | <expression>  GT   <expression>
+               | <expression>  GE  <expression>
+               | <expression>  EQ  <expression>
+               | <expression>  NE  <expression>
+               | <expression>  AND <expression>
+               | <expression>  OR  <expression>
+
+<unary_expression> ::= <primary_expression>
+                     | PLUS <unary_expression>
+                     | MINUS <unary_expression>
+                     | NOT <unary_expression>
+
+<primary_expression> ::= <id>
+                       | <constant>
+                       | LPAREN <expression> RPAREN
+
+<id> ::= ID
+
+<constant> ::= INT_CONST
+             | REAL_CONST
+             | CHAR_CONST
+             | TRUE
+             | FALSE

@@ -1,0 +1,80 @@
+{
+  tokens=[
+          FILTER="filter"
+          ORDER="order"
+          OR="or"
+          AND="and"
+          NOT="not"
+          TRUE="true"
+          FALSE="false"
+          IN="in"
+          RANGE="range"
+          REVERSE="reverse"
+          PLUS="+"
+          MINUS="-"
+          INCLUSIVE="inclusive"
+          LT="<"
+          LE="<="
+          GT=">"
+          GE=">="
+          EQ="="
+          NE="!="
+          LPAREN="("
+          RPAREN=")"
+          COLON=":"
+          SEMI=";"
+          ID="regexp:[a-zA-Z][0-9a-zA-Z_]*"
+          INT_CONST="regexp:[0-9]+"
+          REAL_CONST="regexp:[0-9]+[.][0-9]+"
+          CHAR_CONST="regexp:\'.\'"
+          STRING_LITERAL="regexp:\"(\\.|[^\"\\])*\""
+          ]
+}
+
+<program> ::= <filter> <order>
+            | <order> <filter>
+            | <filter>
+            | <order>
+            | E
+
+<order_id> ::= <id> | REVERSE <id>
+
+<filter> ::= FILTER COLON <expression> SEMI
+
+<order> ::= ORDER COLON <id_list> SEMI
+
+<id_list> ::= <order_id>
+            | <id_list> COMMA <order_id>
+
+<expression> ::= <unary_expression>
+               | <expression>  LT   <expression>
+               | <expression>  LE  <expression>
+               | <expression>  GT   <expression>
+               | <expression>  GE  <expression>
+               | <expression>  EQ  <expression>
+               | <expression>  NE  <expression>
+               | <expression>  AND <expression>
+               | <expression>  OR  <expression>
+               | <range_expression>
+
+<unary_expression> ::= <primary_expression>
+                     | PLUS <unary_expression>
+                     | MINUS <unary_expression>
+                     | NOT <unary_expression>
+
+<primary_expression> ::= <id>
+                       | <constant>
+                       | LPAREN <expression> RPAREN
+
+<unary_expression_range> ::= <unary_expression> | INCLUSIVE <unary_expression>
+
+<range_expression> ::= IN RANGE LPAREN <unary_expression_range> COMMA <unary_expression_range> RPAREN
+
+
+<id> ::= ID
+
+<constant> ::= INT_CONST
+             | REAL_CONST
+             | CHAR_CONST
+             | TRUE
+             | FALSE
