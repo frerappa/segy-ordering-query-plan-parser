@@ -1,0 +1,3 @@
+[submodule "lib/sly"]
+	path = lib/sly
+	url = https://github.com/dabeaz/sly

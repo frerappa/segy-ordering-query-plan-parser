@@ -1,4 +1,0 @@
-include Makefile CONTRIBUTING.md
-recursive-include example *
-recursive-include tests *
-recursive-include docs *
